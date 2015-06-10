@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="fenbl">
+	    <item>0.1um</item>
+	    <item>0.2um</item>
+	    <item>0.25um</item>
+	    <item>0.5um</item>
+	    <item>1um</item>
+	    <item>2um</item>
+	    <item>5um</item>
+	    <item>10um</item>
+	    <item>20um</item>
+	</string-array>
+	
+	<string-array name="jsfx">
+	    <item>正向</item>
+	    <item>反向</item>
+	</string-array>
+	
+	<string-array name="dwms">
+	    <item>mm</item>
+	    <item>cm</item>
+	</string-array>
+	
+	<string-array name="zbms">
+	    <item>ABS</item>
+	    <item>REF</item>
+	</string-array>	
+
+	<string-array name="ztfg">
+	    <item>清新蓝</item>
+	    <item>淡青绿</item>
+	</string-array>
+	
+	<string-array name="cur_axial">
+	    <item>X轴</item>
+	    <item>Y轴</item>
+	    	<item>Z轴</item>	    
+	</string-array>
+
+	<string-array name="zbj">
+	    <item>直径</item>
+	    <item>半径</item>
+	</string-array>
+	
+	<string-array name="xtyy">
+	    <item>中文</item>
+	    <item>English</item>
+	</string-array>
+		
+</resources>

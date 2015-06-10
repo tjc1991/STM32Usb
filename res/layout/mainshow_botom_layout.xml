@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main_lv"
+    android:orientation="vertical" >
+    
+	<LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+         android:background="@drawable/bg_main"
+        android:orientation="vertical" >
+	
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="0dp"
+	        android:layout_weight="4"
+	       android:background="@drawable/bg_main"
+	        android:orientation="vertical" >
+
+	        <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="0dp"
+	            android:layout_weight="1"
+	            android:background="@drawable/bg_main_top"
+	            android:layout_marginTop="10dp"
+	            android:orientation="horizontal" >	            
+	            
+		        <TextView
+		            android:id="@+id/set_x"
+		          	android:gravity="right"
+		            android:layout_marginLeft="1dp"
+		            android:layout_marginStart="1dp"         
+		            android:layout_width="605dp"
+		            android:layout_height="wrap_content"
+		            android:textSize="100sp"
+		            
+		            android:text="0.123" />   
+		            
+		       <Button
+	            android:id="@+id/btn_clearx"
+	            android:layout_marginTop="14dp"
+	            android:layout_gravity="center_vertical" 
+	            android:background="@drawable/x_clear_blue_btn"
+	            android:layout_width="120dp"
+	            android:layout_height="80dp"
+	            
+	            android:layout_marginLeft="20dp"
+		        android:layout_marginStart="20dp"/>
+	        </LinearLayout>
+
+	       <LinearLayout            
+	            android:layout_width="match_parent"
+	            android:background="@drawable/bg_main_top"
+	            android:layout_marginTop="10dp"
+	            android:layout_height="0dp"
+	            android:layout_weight="1" >
+		            
+		        <TextView
+		            android:id="@+id/set_y"
+		            android:gravity="right"
+		            android:layout_marginLeft="1dp"
+		            android:layout_marginStart="1dp"         
+		            android:layout_width="605dp"
+		            android:layout_height="wrap_content"
+		            android:textSize="100sp"
+		            android:text="0" />   
+		            
+		       <Button
+	            android:id="@+id/btn_cleary"
+	            android:layout_marginTop="14dp"	            
+	            android:layout_gravity="center_vertical" 
+	            android:background="@drawable/y_clear_blue_btn"
+	            android:layout_width="120dp"
+	            android:layout_height="80dp"
+	            android:layout_marginLeft="20dp"
+		        android:layout_marginStart="20dp" />
+	        </LinearLayout>
+
+	        <LinearLayout            
+	            android:layout_width="match_parent"
+	            android:layout_height="0dp"
+	            	android:background="@drawable/bg_main_top"
+	            android:layout_marginTop="10dp"
+	            android:layout_marginBottom="10dp"
+	            android:layout_weight="1">
+		              
+		        <TextView
+		            android:id="@+id/set_z"
+		            android:gravity="right"
+		            android:layout_marginLeft="1dp"
+		            android:layout_marginStart="1dp"         
+		            android:layout_width="605dp"		            
+		            android:layout_height="wrap_content"
+		            android:textSize="100sp"
+		            android:text="0" />   
+		            
+		       <Button
+	            android:id="@+id/btn_clearz"
+	            android:layout_marginTop="14dp"	            
+	            android:layout_gravity="center_vertical" 
+	            android:background="@drawable/z_clear_blue_btn"
+	            android:layout_width="120dp"
+	            android:layout_height="80dp"
+	            android:layout_marginLeft="20dp"
+		        android:layout_marginStart="20dp" />
+	        </LinearLayout>
+
+	    </LinearLayout>
+	
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="0dp"
+	        android:layout_weight="1"
+	        android:orientation="horizontal" >
+
+	        <Button
+	            android:id="@+id/xtsz_btn"
+				android:background="@drawable/sys_seting_blue_btn"
+	            android:layout_width="0dp"	            
+	            android:layout_height="fill_parent"
+	            android:layout_weight="1" />
+
+	        <Button
+	            android:id="@+id/mm_btn"
+	            android:background="@drawable/mm_blue_btn"
+	            android:layout_width="0dp"
+	            android:layout_marginLeft="@dimen/setting_btn"
+	            android:layout_height="fill_parent"
+	            android:layout_weight="1"/>
+
+	        <Button
+	            android:id="@+id/abs_btn"
+	            android:background="@drawable/abs_blue_btn"
+	            android:layout_width="0dp"
+	            	android:layout_marginLeft="@dimen/setting_btn"
+	            android:layout_height="fill_parent"
+	            android:layout_weight="1"/>
+
+	        <Button
+	            android:id="@+id/ref_btn"
+	            android:background="@drawable/ref_blue_btn"
+	            android:layout_width="0dp"
+	            android:layout_marginLeft="@dimen/setting_btn"	            
+	            android:layout_height="fill_parent"
+	            android:layout_weight="1"/>
+
+	        <Button
+	            android:id="@+id/zs_btn"
+	            android:background="@drawable/zhishu_blue_btn"
+	            android:layout_width="0dp"
+	            android:layout_marginLeft="@dimen/setting_btn"	            
+	            android:layout_height="fill_parent"
+	            android:layout_weight="1"/>
+
+	        <Button
+	            android:id="@+id/rd_btn"
+	            android:background="@drawable/rd_blue_btn"
+	            android:layout_width="0dp"
+	            android:layout_marginLeft="@dimen/setting_btn"	            
+	            android:layout_height="fill_parent"
+	            android:layout_weight="1"/>
+
+	        <Button
+	            android:id="@+id/kz_btn"
+	            android:background="@drawable/extension_blue_btn"
+	            android:layout_width="0dp"
+	            android:layout_marginLeft="@dimen/setting_btn"	            
+	            android:layout_height="fill_parent"
+	            android:layout_weight="1"/>
+
+	        <Button
+	            android:id="@+id/help_btn"
+	            android:background="@drawable/help_blue_btn"
+	            android:layout_width="0dp"
+	            android:layout_marginLeft="@dimen/setting_btn"	            
+	            android:layout_height="fill_parent"
+	            android:layout_weight="1"/>
+
+	    </LinearLayout>
+    
+    </LinearLayout>
+
+</LinearLayout>

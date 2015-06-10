@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:tools="http://schemas.android.com/tools" 
+    android:layout_width="360dp" 
+    android:layout_height="480dp" 
+    android:background="@drawable/bg_calculator_green"
+    android:orientation="vertical" >  
+    <!-- 显示框 -->
+
+    <TextView
+        android:id="@+id/cal_tv"
+        android:layout_width="320dp"
+        android:layout_height="56dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="66dp"
+        android:gravity="right|center_vertical"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:hint="0"
+        android:textColor="@color/black"
+        android:singleLine="true"
+        android:textSize="@dimen/activity_vertical_TextSize" />
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+    
+        <!-- 中间按钮 --> 
+     <TableLayout  
+         android:layout_width="0dp" 
+         android:layout_weight="5"
+         android:layout_height="match_parent" 
+         android:layout_marginTop="10dp"
+         android:layout_marginLeft="50dp"         
+         > 
+         
+     	<TableRow > 
+        <Button android:id="@+id/cal_back_btn" 
+            android:layout_width="@dimen/cal_btn_widesize" 
+            android:layout_height="@dimen/cal_btn_heightsize" 
+            android:background="@drawable/cback_blue_btn" 
+            android:layout_margin="@dimen/activity_vertical_margin2"/> 
+        <Button android:id="@+id/cal_zf_btn" 
+           android:layout_width="@dimen/cal_btn_widesize" 
+            android:layout_height="@dimen/cal_btn_heightsize" 
+            android:background="@drawable/czf_blue_btn" 
+            android:layout_margin="@dimen/activity_vertical_margin2"/>    
+        <Button android:id="@+id/cal_clear_btn" 
+            android:layout_width="@dimen/cal_btn_widesize" 
+            android:layout_height="@dimen/cal_btn_heightsize" 
+            android:background="@drawable/cclear_blue_btn" 
+            android:layout_margin="@dimen/activity_vertical_margin2"/> 
+         </TableRow>           
+         
+        <TableRow > 
+        <Button android:id="@+id/btn7" 
+           android:layout_width="@dimen/cal_btn_widesize" 
+            android:layout_height="@dimen/cal_btn_heightsize"  
+            android:background="@drawable/c7_green_btn" 
+            android:layout_margin="@dimen/activity_vertical_margin2"/> 
+        <Button android:id="@+id/btn8" 
+           android:layout_width="@dimen/cal_btn_widesize" 
+            android:layout_height="@dimen/cal_btn_heightsize" 
+            android:background="@drawable/c8_green_btn" 
+            android:layout_margin="@dimen/activity_vertical_margin2"/>    
+        <Button android:id="@+id/btn9" 
+           android:layout_width="@dimen/cal_btn_widesize" 
+            android:layout_height="@dimen/cal_btn_heightsize" 
+            android:background="@drawable/c9_green_btn" 
+            android:layout_margin="@dimen/activity_vertical_margin2"/> 
+         </TableRow>   
+         <TableRow > 
+        <Button android:id="@+id/btn4" 
+           android:layout_width="@dimen/cal_btn_widesize" 
+            android:layout_height="@dimen/cal_btn_heightsize" 
+            android:background="@drawable/c4_green_btn" 
+            android:layout_margin="@dimen/activity_vertical_margin2"/>    
+        <Button android:id="@+id/btn5" 
+           android:layout_width="@dimen/cal_btn_widesize" 
+            android:layout_height="@dimen/cal_btn_heightsize" 
+            android:background="@drawable/c5_green_btn" 
+            android:layout_margin="@dimen/activity_vertical_margin2"/> 
+        <Button android:id="@+id/btn6" 
+           android:layout_width="@dimen/cal_btn_widesize" 
+            android:layout_height="@dimen/cal_btn_heightsize" 
+            android:background="@drawable/c6_green_btn" 
+            android:layout_margin="@dimen/activity_vertical_margin2"/> 
+         <!-- <Button android:id="@+id/cal_confirm" 
+           android:layout_width="@dimen/cal_btn_widesize" 
+            android:layout_height="@dimen/cal_btn_heightsize" 
+            android:background="@drawable/cconfir_blue_btn" 
+            android:layout_margin="@dimen/activity_vertical_margin2"/> --> 
+        </TableRow> 
+         <TableRow > 
+        <Button android:id="@+id/btn1" 
+           android:layout_width="@dimen/cal_btn_widesize" 
+            android:layout_height="@dimen/cal_btn_heightsize" 
+            android:background="@drawable/c1_green_btn" 
+            android:layout_margin="@dimen/activity_vertical_margin2"/>    
+        <Button android:id="@+id/btn2" 
+            android:layout_width="@dimen/cal_btn_widesize" 
+            android:layout_height="@dimen/cal_btn_heightsize" 
+            android:background="@drawable/c2_green_btn" 
+            android:layout_margin="@dimen/activity_vertical_margin2"/> 
+        <Button android:id="@+id/btn3" 
+           android:layout_width="@dimen/cal_btn_widesize" 
+            android:layout_height="@dimen/cal_btn_heightsize" 
+            android:background="@drawable/c3_green_btn" 
+            android:layout_margin="@dimen/activity_vertical_margin2"/> 
+            
+         <!-- <Button android:id="@+id/cal_cancel" 
+           android:layout_width="@dimen/cal_btn_widesize" 
+            android:layout_height="@dimen/cal_btn_heightsize" 
+            android:background="@drawable/ccancle_blue_btn" 
+            android:layout_margin="@dimen/activity_vertical_margin2"/> --> 
+          
+        </TableRow> 
+           
+        <TableRow > 
+        <Button android:id="@+id/btn0" 
+           android:layout_width="55dp" 
+           android:layout_span="2"
+            android:layout_height="@dimen/cal_btn_heightsize" 
+            android:background="@drawable/c0_blue_btn" 
+            android:layout_margin="@dimen/activity_vertical_margin2"/>    
+        <Button android:id="@+id/btnPoint" 
+           android:layout_width="@dimen/cal_btn_widesize" 
+            android:layout_height="@dimen/cal_btn_heightsize" 
+            android:background="@drawable/cpoint_blue_btn" 
+            android:layout_margin="@dimen/activity_vertical_margin2"/> 
+
+        </TableRow> 
+                        
+     </TableLayout>    
+     
+     <LinearLayout 
+         android:layout_width="0dp" 
+         android:layout_weight="2"
+         android:layout_marginRight="15dp"
+         android:layout_height="match_parent"
+         android:orientation="vertical">
+        
+         <Button android:id="@+id/cal_confirm" 
+           android:layout_width="70dp" 
+           android:layout_marginTop="70dp"
+            android:layout_height="170dp" 
+            android:background="@drawable/cconfir_blue_btn"/>
+         
+         <Button android:id="@+id/cal_cancel" 
+           android:layout_width="70dp" 
+            android:layout_height="80dp" 
+            android:layout_marginTop="5dp"
+            android:background="@drawable/ccancle_blue_btn"/>
+         
+     </LinearLayout>
+     
+     </LinearLayout>
+     
+     
+   
+</LinearLayout>

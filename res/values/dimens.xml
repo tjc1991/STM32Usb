@@ -1,0 +1,20 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    
+    <dimen name="setting_btn">1dp</dimen>
+	<dimen name="setting_textsize">20sp</dimen>    
+	<dimen name="setting_span">5dp</dimen>  
+	<dimen name="setting_tv_widesize">60dp</dimen>  
+	<dimen name="setting_btn_heightsize">30dp</dimen> 
+	<dimen name="setting_btn_widesize">100dp</dimen> 
+	<dimen name="setting_leftspan">5dp</dimen>
+	<dimen name="activity_vertical_TextSize">35sp</dimen> 
+	<dimen name="activity_vertical_margin2">5dp</dimen> 	
+	<dimen name="cal_btn_widesize">55dp</dimen> 
+	<dimen name="cal_btn_heightsize">55dp</dimen> 
+	<dimen name="right_size">520dp</dimen> 
+		
+</resources>

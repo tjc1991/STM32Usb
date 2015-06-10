@@ -1,0 +1,196 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+   android:orientation="vertical">
+
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:orientation="horizontal">
+    <TextView
+        android:id="@+id/showdevice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="TextView" />
+    </LinearLayout>
+
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:orientation="horizontal">
+      	<TextView
+	        android:id="@+id/tx_x"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="20sp"
+	        android:text="X轴:" />  
+	    <TextView
+	        android:id="@+id/tv_x"
+	        android:layout_width="500dp"
+	        android:textSize="20sp"
+	        android:text="0"
+	        android:gravity="center"
+	        android:layout_height="wrap_content"
+ 			/>    
+      	<Button
+	        android:id="@+id/btn_clcx"
+	        android:layout_width="80dp"
+	        android:layout_height="wrap_content"
+	        android:text="清空" />
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+      	<TextView
+	        android:id="@+id/tx_y"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="20sp"
+	        android:text="Y轴:" />  
+	    <TextView
+	        android:id="@+id/tv_y"
+	        android:layout_width="500dp"
+	        android:textSize="20sp"
+	        android:text="0"
+	        android:gravity="center"
+	        android:layout_height="wrap_content"
+ 			/>    
+      	<Button
+	        android:id="@+id/btn_clcy"
+	        android:layout_width="80dp"
+	        android:layout_height="wrap_content"
+	        android:text="清空" />
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+      	<TextView
+	        android:id="@+id/tx_z"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="20sp"
+	        android:text="Z轴:" />  
+	    <TextView
+	        android:id="@+id/tv_z"
+	        android:layout_width="500dp"
+	        android:textSize="20sp"
+	        android:text="0"
+	        android:gravity="center"
+	        android:layout_height="wrap_content"
+ 			/>    
+      	<Button
+	        android:id="@+id/btn_clcz"
+	        android:layout_width="80dp"
+	        android:layout_height="wrap_content"
+	        android:text="清空" />
+    </LinearLayout>
+    
+   <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:orientation="horizontal">
+      	<TextView
+	        android:id="@+id/tx_c"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/ShowConsole"
+	        android:textSize="20sp"
+	        android:text="C轴:" />  
+	    <TextView
+	        android:id="@+id/tv_c"
+	        android:layout_width="500dp"
+	        android:textSize="20sp"
+	        android:text="0"
+	        android:gravity="center"
+	        android:layout_height="wrap_content"
+ 			/>    
+      	<Button
+	        android:id="@+id/btn_clcc"
+	        android:layout_width="80dp"
+	        android:layout_height="wrap_content"
+	        android:text="清空" />
+    </LinearLayout>
+    
+       <LinearLayout
+           android:layout_width="620dp"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="20dp"
+           android:layout_marginLeft="20dp"
+           android:orientation="horizontal" >
+
+           <Button
+               android:id="@+id/btn_ct"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:text="连接" />
+
+           <Button
+               android:id="@+id/btn_quit"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:text="退出" />
+
+           <Button
+               android:id="@+id/btn_disct"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:text="断开" />
+
+       </LinearLayout>
+
+   <LinearLayout
+       android:layout_width="620dp"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="20dp"
+       android:layout_marginLeft="20dp"
+       android:orientation="horizontal" >
+
+    <Button
+        android:id="@+id/btn_ep2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="EP2" />
+
+    <Button
+        android:id="@+id/btn_ep3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="EP3" />
+
+    <Button
+        android:id="@+id/btn_ep4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="EP4" />
+
+    <Button
+        android:id="@+id/btn_ep5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="EP5" />
+
+    </LinearLayout>
+
+</LinearLayout>

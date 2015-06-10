@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="480dp"
+    android:layout_height="430dp"
+    android:layout_gravity="center_vertical|center_horizontal"
+    android:layout_marginLeft="20dip"
+    android:layout_marginRight="20dip"
+    android:background="@drawable/framework_zhou_green"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/logout"
+        android:layout_width="fill_parent"
+        android:gravity="center"
+        android:layout_marginTop="140dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="30.0dip" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/dlg_clear_title"
+            android:textSize="20.0sp" />
+
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content" >
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/dlg_clear_notifice"
+            android:textColor="@color/black"
+            android:textSize="20.0sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lougoutcancel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/confirm_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/confir_dlg_btn"
+            android:gravity="center" />
+
+        <Button
+            android:id="@+id/cancel_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="50dp"
+            android:background="@drawable/cancel_green_btn"
+            android:gravity="center" />
+    </LinearLayout>
+
+</LinearLayout>

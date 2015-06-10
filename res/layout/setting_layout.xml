@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_set_blue"
+    android:orientation="vertical" >
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal" >
+
+    </LinearLayout>
+    
+    <LinearLayout 
+	        android:layout_width="fill_parent"
+	        android:orientation="horizontal"
+	        android:layout_height="280dp"           
+            >
+            
+        <LinearLayout 
+	        android:layout_width="0dp"
+	        android:layout_weight="1"
+	        android:orientation="vertical"
+	        android:layout_height="280dp"           
+            >
+ 
+	        <LinearLayout
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal" >
+            
+            <TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="20dp"
+	            android:layout_marginStart="20dp"
+	            android:textSize="@dimen/setting_textsize"
+	            android:textColor="@color/whitesmoke"
+	            android:layout_gravity="center"
+	            android:text="@string/tv_fbl_cn" />
+            
+            <Spinner
+                android:id="@+id/sp_fenbl"
+                android:layout_width="match_parent"
+                style="@style/spinner_style"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:entries="@array/fenbl"
+                android:spinnerMode="dialog" />
+            
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/setting_span"
+            android:orientation="horizontal" >
+            
+           <TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="20dp"
+	            android:layout_marginStart="20dp"
+	            android:textSize="@dimen/setting_textsize"
+	            android:textColor="@color/whitesmoke"
+	            android:layout_gravity="center"
+	            android:text="@string/tv_jsfx_cn" />
+            
+            <Spinner
+                android:id="@+id/sp_jsfx"
+                android:layout_width="match_parent"
+                style="@style/spinner_style"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:entries="@array/jsfx"
+                android:spinnerMode="dialog" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/setting_span"
+            android:orientation="horizontal" >
+            
+          <TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="20dp"
+	            android:layout_marginStart="20dp"
+	            android:textSize="@dimen/setting_textsize"
+	            android:textColor="@color/whitesmoke"
+	            android:layout_gravity="center"
+	            android:text="@string/tv_dwms_cn" />
+            
+            <Spinner
+                android:id="@+id/sp_dwms"
+                android:layout_width="match_parent"
+                style="@style/spinner_style"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:entries="@array/dwms"
+                android:spinnerMode="dialog" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/setting_span"
+            android:orientation="horizontal" >
+            
+         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:textSize="@dimen/setting_textsize"
+            android:textColor="@color/whitesmoke"
+            android:layout_gravity="center"
+            android:text="@string/tv_zbms_cn" />
+            
+            <Spinner
+                android:id="@+id/sp_zbms"
+                android:layout_width="match_parent"
+                style="@style/spinner_style"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:entries="@array/zbms"
+                android:spinnerMode="dialog" />
+
+        		</LinearLayout>
+        		
+         <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/setting_span"
+            android:orientation="horizontal" >
+            
+         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:textSize="@dimen/setting_textsize"
+            android:textColor="@color/whitesmoke"
+            android:layout_gravity="center"
+            android:text="@string/tv_zbj_cn" />
+            
+            <Spinner
+                android:id="@+id/sp_zbj"
+                android:layout_width="match_parent"
+                style="@style/spinner_style"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:entries="@array/zbj"
+                android:spinnerMode="dialog" />
+
+        		</LinearLayout>       
+                               
+        </LinearLayout>
+        
+        <LinearLayout 
+	        android:layout_width="0dp"
+	        android:layout_weight="1"
+	        android:orientation="vertical"
+	        android:layout_height="280dp"           
+            >
+ 
+ 	        <RelativeLayout
+	            android:layout_width="fill_parent"
+	            android:layout_height="40dp"
+	            android:layout_marginLeft="@dimen/setting_leftspan"
+	            android:orientation="horizontal" >
+            
+            <Button
+                android:id="@+id/qltx_btn"
+                android:layout_width="@dimen/setting_btn_widesize"
+                android:layout_height="@dimen/setting_btn_heightsize"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+				android:background="@drawable/button_off_set_blue" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/tv_qltx_cn"
+                android:textColor="@color/whitesmoke"
+                android:textSize="@dimen/setting_textsize" />
+            
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="@dimen/setting_leftspan"            
+            android:layout_marginTop="@dimen/setting_span"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/zs_btn"
+                android:layout_width="@dimen/setting_btn_widesize"
+                android:layout_height="@dimen/setting_btn_heightsize"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/button_off_set_blue" />
+
+            <TextView
+                android:id="@+id/tv_zs"
+                android:layout_width="@dimen/setting_tv_widesize"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="100"
+                android:textColor="@color/whitesmoke"
+                android:textSize="@dimen/setting_textsize" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/tv_zs_cn"
+                android:textColor="@color/whitesmoke"
+                android:textSize="@dimen/setting_textsize" />
+        </RelativeLayout>
+
+		<RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="@dimen/setting_leftspan"            
+            android:layout_marginTop="@dimen/setting_span"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/xxbc_btn"
+                android:layout_width="@dimen/setting_btn_widesize"
+                android:layout_height="@dimen/setting_btn_heightsize"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/button_off_set_blue" />
+
+            <TextView
+                android:id="@+id/tv_xxbc"
+                android:layout_width="@dimen/setting_tv_widesize"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="100"
+                android:textColor="@color/whitesmoke"
+                android:textSize="@dimen/setting_textsize" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/tv_xxbc_cn"
+                android:textColor="@color/whitesmoke"
+                android:textSize="@dimen/setting_textsize" />
+        </RelativeLayout>
+        
+		<RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="@dimen/setting_leftspan"            
+            android:layout_marginTop="@dimen/setting_span"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/ssl_btn"
+                android:layout_width="@dimen/setting_btn_widesize"
+                android:layout_height="@dimen/setting_btn_heightsize"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/button_off_set_blue" />
+
+            <TextView
+                android:id="@+id/ssl_zs"
+                android:layout_width="@dimen/setting_tv_widesize"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="100"
+                android:textColor="@color/whitesmoke"
+                android:textSize="@dimen/setting_textsize" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/tv_ssl_cn"
+                android:textColor="@color/whitesmoke"
+                android:textSize="@dimen/setting_textsize" />
+        </RelativeLayout>
+                           
+    </LinearLayout>
+        
+        <LinearLayout 
+	        android:layout_width="0dp"
+	        android:layout_weight="1"
+	        android:orientation="vertical"
+	        android:layout_height="280dp"           
+            >
+          
+	        <LinearLayout
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="@dimen/setting_leftspan"
+	            android:orientation="horizontal" >
+            
+            <TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="20dp"
+	            android:layout_marginStart="20dp"
+	            android:textSize="@dimen/setting_textsize"
+	            android:textColor="@color/whitesmoke"
+	            android:layout_gravity="center"
+	            android:text="@string/tv_ylsz_cn" />
+            
+			<SeekBar 
+			    android:id="@+id/sb_ylsz"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+			    />
+            
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+ 			android:layout_marginLeft="@dimen/setting_leftspan"            
+            android:layout_marginTop="@dimen/setting_span"
+            android:orientation="horizontal" >
+            
+           <TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="20dp"
+	            android:layout_marginStart="20dp"
+	            android:textSize="@dimen/setting_textsize"
+	            android:textColor="@color/whitesmoke"
+	            android:layout_gravity="center"
+	            android:text="@string/tv_ldsz_cn" />
+            
+			<SeekBar 
+			    android:id="@+id/sb_ldsz"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+			    />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/setting_leftspan" 
+            android:layout_marginTop="@dimen/setting_span"
+            android:orientation="horizontal" >
+            
+          <TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="20dp"
+	            android:layout_marginStart="20dp"
+	            android:textSize="@dimen/setting_textsize"
+	            android:textColor="@color/whitesmoke"
+	            android:layout_gravity="center"
+	            android:text="@string/tv_ztfg_cn" />
+            
+            <Spinner
+                android:id="@+id/sp_ztfg"
+                android:layout_width="match_parent"
+                style="@style/spinner_style"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:entries="@array/ztfg"
+                android:spinnerMode="dialog" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/setting_leftspan" 
+            android:layout_marginTop="@dimen/setting_span"
+            android:orientation="horizontal" >
+            
+         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:textSize="@dimen/setting_textsize"
+            android:textColor="@color/whitesmoke"
+            android:layout_gravity="center"
+            android:text="@string/tv_xtyy_cn" />
+            
+            <Spinner
+                android:id="@+id/sp_xtyy"
+                android:layout_width="match_parent"
+                style="@style/spinner_style"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:entries="@array/xtyy"
+                android:spinnerMode="dialog" />
+
+        		</LinearLayout>
+        		
+         <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="@dimen/setting_leftspan" 
+            android:layout_marginTop="@dimen/setting_span"
+            android:orientation="horizontal" >
+
+             <Button
+            		 android:layout_marginTop="@dimen/setting_span"
+                 android:layout_width="120dp"
+                 android:layout_height="30dp"
+                 android:layout_marginLeft="30dp"
+                 android:layout_gravity="center_vertical"
+                 android:background="@drawable/recover_sys_btn"
+                 android:gravity="center" />
+
+        		</LinearLayout>                   
+            
+        </LinearLayout>        
+            
+    </LinearLayout>
+              
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+            
+         <Button
+            android:id="@+id/btn_ok"  
+            android:background="@drawable/sys_ok_blue_btn"           
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="200dp"
+            android:layout_marginStart="200dp"
+            android:layout_gravity="center_vertical" />
+            
+            <Button 
+                android:id="@+id/btn_cancel"
+                android:background="@drawable/sys_cancel_blue_btn"
+                android:layout_gravity="center_vertical"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+            	    android:layout_marginStart="50dp"/>
+        </LinearLayout>
+        
+
+</LinearLayout>

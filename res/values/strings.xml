@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">精密检测仪</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="application_name">长春精仪光电技术有限公司</string>
+    <string name="cn_name">中文</string>
+    <string name="en_name">English</string>
+    <string name="curstatus">当前\n状态</string>
+    <string name="tv_fbl_cn">分辨率</string>
+    <string name="tv_jsfx_cn">计术方向</string>
+    <string name="tv_dwms_cn">单位模式</string>
+    <string name="tv_zbms_cn">坐标模式</string>
+    <string name="tv_qltx_cn">清零提醒</string>    
+    <string name="tv_zbj_cn">直半径</string>
+    <string name="tv_zs_cn">置数</string>
+    <string name="tv_xxbc_cn">线性补偿</string>
+    <string name="tv_ssl_cn">缩水率</string>
+    <string name="tv_ylsz_cn">音量设置</string>
+    <string name="tv_ldsz_cn">亮度设置</string>
+    <string name="tv_ztfg_cn">主题风格</string>
+    <string name="tv_xtyy_cn">系统语言</string>
+	<string name="btn_back">返回</string>
+	
+	<string name="dlg_title">请选择要设置的轴</string>  
+	<string name="dlg_clear_title">是否要对当前数据清零?</string>
+	<string name="dlg_clear_notifice">不再提示!</string>
+	  
+</resources>
