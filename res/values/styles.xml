@@ -30,6 +30,11 @@
 	    <item name="android:windowNoTitle">true</item>
 	    <item name="android:windowBackground">@android:color/transparent</item>
 	</style>
+	
+    	<style name="mm_inch_checkbox" parent="@android:style/Widget.CompoundButton.CheckBox"> 
+        <item name="android:background">@drawable/mm_inch_checkbox</item> 
+        <item name="android:padding">0dp</item>
+    </style>
     
 
 

@@ -23,21 +23,11 @@
             android:name="com.cldxk.stm32.ui.CalActivity"
 			android:theme="@style/cal_dialog"            
 			android:screenOrientation="landscape"/>
-        
-         <activity
-            android:name="com.cldxk.stm32.ui.SettingActivity"
-            android:screenOrientation="landscape"/>
-         
-         <activity
-            android:name="com.cldxk.stm32.ui.MainShowNoStActivity"
-            android:screenOrientation="landscape"/>
                  
          <activity
             android:name="com.cldxk.stm32.ui.MainShowBotomActivity"           
             android:screenOrientation="landscape"/>   
-            
-         <!-- android:theme="@style/cal_dialog" -->
-            
+                        
          <activity
             android:name="com.cldxk.stm32.ui.SettingChangeActivity"
             android:screenOrientation="landscape"/>

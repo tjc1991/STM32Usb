@@ -28,20 +28,21 @@
 	            
 		        <TextView
 		            android:id="@+id/set_x"
-		          	android:gravity="right"
+		          	android:gravity="right|top"
 		            android:layout_marginLeft="1dp"
-		            android:layout_marginStart="1dp"         
+		            android:layout_marginStart="1dp" 
 		            android:layout_width="605dp"
-		            android:layout_height="wrap_content"
-		            android:textSize="100sp"
-		            
-		            android:text="0.123" />   
+		            android:layout_weight="5"
+		            android:layout_height="fill_parent"
+		            android:textSize="90sp"
+		            android:text="0" />   
 		            
 		       <Button
 	            android:id="@+id/btn_clearx"
 	            android:layout_marginTop="14dp"
 	            android:layout_gravity="center_vertical" 
 	            android:background="@drawable/x_clear_blue_btn"
+	            android:layout_weight="1"
 	            android:layout_width="120dp"
 	            android:layout_height="80dp"
 	            
@@ -58,12 +59,13 @@
 		            
 		        <TextView
 		            android:id="@+id/set_y"
-		            android:gravity="right"
+		            android:gravity="right|top"
 		            android:layout_marginLeft="1dp"
 		            android:layout_marginStart="1dp"         
 		            android:layout_width="605dp"
-		            android:layout_height="wrap_content"
-		            android:textSize="100sp"
+		            android:layout_weight="5"
+		            android:layout_height="fill_parent"
+		            android:textSize="90sp"
 		            android:text="0" />   
 		            
 		       <Button
@@ -73,6 +75,7 @@
 	            android:background="@drawable/y_clear_blue_btn"
 	            android:layout_width="120dp"
 	            android:layout_height="80dp"
+	            android:layout_weight="1"
 	            android:layout_marginLeft="20dp"
 		        android:layout_marginStart="20dp" />
 	        </LinearLayout>
@@ -87,17 +90,19 @@
 		              
 		        <TextView
 		            android:id="@+id/set_z"
-		            android:gravity="right"
+		            android:gravity="right|top"
+		            android:layout_weight="5"
 		            android:layout_marginLeft="1dp"
 		            android:layout_marginStart="1dp"         
 		            android:layout_width="605dp"		            
-		            android:layout_height="wrap_content"
-		            android:textSize="100sp"
+		            android:layout_height="fill_parent"
+		            android:textSize="90sp"
 		            android:text="0" />   
 		            
 		       <Button
 	            android:id="@+id/btn_clearz"
-	            android:layout_marginTop="14dp"	            
+	            android:layout_marginTop="14dp"
+	            android:layout_weight="1"	            
 	            android:layout_gravity="center_vertical" 
 	            android:background="@drawable/z_clear_blue_btn"
 	            android:layout_width="120dp"
@@ -121,13 +126,21 @@
 	            android:layout_height="fill_parent"
 	            android:layout_weight="1" />
 
-	        <Button
+	         <Button
 	            android:id="@+id/mm_btn"
 	            android:background="@drawable/mm_blue_btn"
 	            android:layout_width="0dp"
 	            android:layout_marginLeft="@dimen/setting_btn"
 	            android:layout_height="fill_parent"
-	            android:layout_weight="1"/>
+	            android:layout_weight="1"/> 
+	            
+	       	<!-- <CheckBox
+	            android:id="@+id/mm_btn"
+	            style="@style/mm_inch_checkbox"
+	            android:layout_width="0dp"
+	            android:layout_marginLeft="@dimen/setting_btn"
+	            android:layout_height="fill_parent"
+	            android:layout_weight="1"/> -->
 
 	        <Button
 	            android:id="@+id/abs_btn"

@@ -50,7 +50,9 @@ public class UsbDriver{
 			if(5251 == device.getVendorId() && 22353 == device.getProductId()){
 				usbDevice = device;
 				System.out.println( "Start ScanDevices" );  
+				
 				usbManager.requestPermission(usbDevice, pendingIntent);
+				
 				//usbface.ReceiveMsg("Init ok!");
 				return usbDevice;
 			}

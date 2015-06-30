@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cldxk.app.USBConfig;
+import com.cldxk.stm32.utils.AxialManager;
 import com.cldxk.stm32usb.ui.base.EBaseActivity;
 import com.ukmterm.stm32usb.R;
 
@@ -22,6 +24,7 @@ public class SettingChangeActivity extends EBaseActivity implements OnClickListe
 	private TextView cur_axal_tv = null;
 	private Button ok_btn = null;
 	private Button cancel_btn = null;
+	private Button recover_btn = null;
 	
 	private int recvalue =0;
 	private int defaultvalue =0;
@@ -37,6 +40,10 @@ public class SettingChangeActivity extends EBaseActivity implements OnClickListe
 	private ImageButton ssl_btn = null;
 	private Spinner ztfgSpinner = null;
 	private Spinner xtyySpinner = null;
+	
+	private SeekBar sb_ylsz = null;
+	private SeekBar sb_ldsz = null;
+	
 	
 	private boolean is_jsfx = true;
 	private boolean is_dwms = true;
@@ -111,6 +118,9 @@ public class SettingChangeActivity extends EBaseActivity implements OnClickListe
 		ok_btn.setOnClickListener(this);
 		cancel_btn.setOnClickListener(this);
 		
+		recover_btn = findButtonById(R.id.btn_recover);
+		recover_btn.setOnClickListener(this);
+		
 		fblSpinner = (Spinner)findViewById(R.id.sp_fenbl);
 		jsfx_btn = (ImageButton) findViewById(R.id.jsfx_btn);
 		jsfx_btn.setOnClickListener(this);
@@ -139,6 +149,9 @@ public class SettingChangeActivity extends EBaseActivity implements OnClickListe
 		
 		suosl_tv = this.findTextViewById(R.id.suosl_tv);
 		suosl_tv.setOnClickListener(this);
+		
+		sb_ylsz = (SeekBar) this.findViewById(R.id.sb_ylsz);
+		sb_ldsz = (SeekBar) this.findViewById(R.id.sb_ldsz);
 		
 		
 	}
@@ -170,6 +183,11 @@ public class SettingChangeActivity extends EBaseActivity implements OnClickListe
 			break;
 			
 		case R.id.btn_cancel:
+			this.finish();
+			break;
+			
+		case R.id.btn_recover:
+			AxialManager.resetAllAxial();
 			this.finish();
 			break;
 			
@@ -266,6 +284,8 @@ public class SettingChangeActivity extends EBaseActivity implements OnClickListe
 			is_ssl = msharePreferenceUtil.loadBooleanSharedPreference("x_is_ssl");
 			
 			fblSpinner.setSelection(msharePreferenceUtil.loadIntSharedPreference("x_mfbl"),true);	
+			sb_ldsz.setProgress(msharePreferenceUtil.loadIntSharedPreference("x_sb_ldsz"));
+			sb_ylsz.setProgress(msharePreferenceUtil.loadIntSharedPreference("x_sb_ylsz"));
 			
 			zhis_tv.setText(msharePreferenceUtil.loadStringSharedPreference("x_zhis_tv", "0"));
 			xxbc_tv.setText(msharePreferenceUtil.loadStringSharedPreference("x_xxbc_tv", "0"));
@@ -281,6 +301,8 @@ public class SettingChangeActivity extends EBaseActivity implements OnClickListe
 			is_ssl = msharePreferenceUtil.loadBooleanSharedPreference("y_is_ssl");
 			
 			fblSpinner.setSelection(msharePreferenceUtil.loadIntSharedPreference("y_mfbl"),true);	
+			sb_ldsz.setProgress(msharePreferenceUtil.loadIntSharedPreference("y_sb_ldsz"));
+			sb_ylsz.setProgress(msharePreferenceUtil.loadIntSharedPreference("y_sb_ylsz"));
 			
 			zhis_tv.setText(msharePreferenceUtil.loadStringSharedPreference("y_zhis_tv", "0"));
 			xxbc_tv.setText(msharePreferenceUtil.loadStringSharedPreference("y_xxbc_tv", "0"));
@@ -297,6 +319,8 @@ public class SettingChangeActivity extends EBaseActivity implements OnClickListe
 			is_ssl = msharePreferenceUtil.loadBooleanSharedPreference("z_is_ssl");
 			
 			fblSpinner.setSelection(msharePreferenceUtil.loadIntSharedPreference("z_mfbl"),true);	
+			sb_ldsz.setProgress(msharePreferenceUtil.loadIntSharedPreference("z_sb_ldsz"));
+			sb_ylsz.setProgress(msharePreferenceUtil.loadIntSharedPreference("z_sb_ylsz"));
 			
 			zhis_tv.setText(msharePreferenceUtil.loadStringSharedPreference("z_zhis_tv", "0"));
 			xxbc_tv.setText(msharePreferenceUtil.loadStringSharedPreference("z_xxbc_tv", "0"));
@@ -316,26 +340,53 @@ public class SettingChangeActivity extends EBaseActivity implements OnClickListe
 			msharePreferenceUtil.saveSharedPreferences("x_isjsfx",is_jsfx);
 			msharePreferenceUtil.saveSharedPreferences("x_is_dwms",is_dwms);
 			msharePreferenceUtil.saveSharedPreferences("x_is_zbms",is_zbms);
-			msharePreferenceUtil.saveSharedPreferences("x_is_zbj",is_zbj);
-			msharePreferenceUtil.saveSharedPreferences("x_is_qltx",is_qltx);
+			msharePreferenceUtil.saveSharedPreferences("x_is_zbj",is_zbj);			
+			msharePreferenceUtil.saveSharedPreferences("x_is_qltx",is_qltx);			
 			msharePreferenceUtil.saveSharedPreferences("x_is_zs",is_zs);
 			msharePreferenceUtil.saveSharedPreferences("x_is_xxbc",is_xxbc);
 			msharePreferenceUtil.saveSharedPreferences("x_is_ssl",is_ssl);
-						
+									
 			msharePreferenceUtil.saveSharedPreferences("x_mfbl", pos);
 			
-			msharePreferenceUtil.saveSharedPreferences("x_zhis_tv",zhis_tv.getText().toString());
-			msharePreferenceUtil.saveSharedPreferences("x_xxbc_tv",xxbc_tv.getText().toString());
-			
-			String sslstr = suosl_tv.getText().toString();
-			if(Float.parseFloat(sslstr)!= 0){	
-				is_setting_ok = true;
-				msharePreferenceUtil.saveSharedPreferences("x_suosl_tv",sslstr);
+			msharePreferenceUtil.saveSharedPreferences("x_sb_ylsz", sb_ylsz.getProgress());
+			msharePreferenceUtil.saveSharedPreferences("x_sb_ldsz", sb_ldsz.getProgress());
+						
+			if(is_zs == true){				
+				msharePreferenceUtil.saveSharedPreferences("x_zhis_tv",zhis_tv.getText().toString());
 			}else{
-				is_setting_ok = false;
-				Toast.makeText(getApplicationContext(), "缩水率不能为0", Toast.LENGTH_SHORT);
-				return;
+				msharePreferenceUtil.saveSharedPreferences("x_zhis_tv","0");
 			}
+			
+			if(is_xxbc == true){				
+				msharePreferenceUtil.saveSharedPreferences("x_xxbc_tv",xxbc_tv.getText().toString());
+			}else{
+				msharePreferenceUtil.saveSharedPreferences("x_xxbc_tv","0");
+			}
+						
+			if(is_ssl == true){				
+				String sslstr = suosl_tv.getText().toString();
+				if(Float.parseFloat(sslstr)!= 0){	
+					is_setting_ok = true;
+					msharePreferenceUtil.saveSharedPreferences("x_suosl_tv",sslstr);
+				}else{
+					is_setting_ok = false;
+					Toast.makeText(getApplicationContext(), "缩水率不能为0", Toast.LENGTH_SHORT);
+					return;
+				}
+			}else{
+				is_setting_ok = true;
+				msharePreferenceUtil.saveSharedPreferences("x_suosl_tv","1");
+			}
+			
+//			String sslstr = suosl_tv.getText().toString();
+//			if(Float.parseFloat(sslstr)!= 0){	
+//				is_setting_ok = true;
+//				msharePreferenceUtil.saveSharedPreferences("x_suosl_tv",sslstr);
+//			}else{
+//				is_setting_ok = false;
+//				Toast.makeText(getApplicationContext(), "缩水率不能为0", Toast.LENGTH_SHORT);
+//				return;
+//			}
 		}else if(cur_axial.equals("Y")){			
 			msharePreferenceUtil.saveSharedPreferences("y_isjsfx",is_jsfx);
 			msharePreferenceUtil.saveSharedPreferences("y_is_dwms",is_dwms);
@@ -347,19 +398,47 @@ public class SettingChangeActivity extends EBaseActivity implements OnClickListe
 			msharePreferenceUtil.saveSharedPreferences("y_is_ssl",is_ssl);
 			
 			msharePreferenceUtil.saveSharedPreferences("y_mfbl", pos);
+			msharePreferenceUtil.saveSharedPreferences("y_sb_ylsz", sb_ylsz.getProgress());
+			msharePreferenceUtil.saveSharedPreferences("y_sb_ldsz", sb_ldsz.getProgress());
 			
-			msharePreferenceUtil.saveSharedPreferences("y_zhis_tv",zhis_tv.getText().toString());
-			msharePreferenceUtil.saveSharedPreferences("y_xxbc_tv",xxbc_tv.getText().toString());
-			
-			String sslstr = suosl_tv.getText().toString();
-			if(Float.parseFloat(sslstr)!= 0){	
-				is_setting_ok = true;
-				msharePreferenceUtil.saveSharedPreferences("y_suosl_tv",sslstr);
+			if(is_zs == true){				
+				msharePreferenceUtil.saveSharedPreferences("y_zhis_tv",zhis_tv.getText().toString());
 			}else{
-				is_setting_ok = false;
-				Toast.makeText(getApplicationContext(), "缩水率不能为0", Toast.LENGTH_SHORT);
-				return;
+				msharePreferenceUtil.saveSharedPreferences("y_zhis_tv","0");
 			}
+			
+			if(is_xxbc == true){				
+				msharePreferenceUtil.saveSharedPreferences("y_xxbc_tv",xxbc_tv.getText().toString());
+			}else{
+				msharePreferenceUtil.saveSharedPreferences("y_xxbc_tv","0");
+			}
+						
+			if(is_ssl == true){				
+				String sslstr = suosl_tv.getText().toString();
+				if(Float.parseFloat(sslstr)!= 0){	
+					is_setting_ok = true;
+					msharePreferenceUtil.saveSharedPreferences("y_suosl_tv",sslstr);
+				}else{
+					is_setting_ok = false;
+					Toast.makeText(getApplicationContext(), "缩水率不能为0", Toast.LENGTH_SHORT);
+					return;
+				}
+			}else{
+				is_setting_ok = true;
+				msharePreferenceUtil.saveSharedPreferences("y_suosl_tv","1");
+			}
+			
+//			msharePreferenceUtil.saveSharedPreferences("y_xxbc_tv",xxbc_tv.getText().toString());
+//			
+//			String sslstr = suosl_tv.getText().toString();
+//			if(Float.parseFloat(sslstr)!= 0){	
+//				is_setting_ok = true;
+//				msharePreferenceUtil.saveSharedPreferences("y_suosl_tv",sslstr);
+//			}else{
+//				is_setting_ok = false;
+//				Toast.makeText(getApplicationContext(), "缩水率不能为0", Toast.LENGTH_SHORT);
+//				return;
+//			}
 			//msharePreferenceUtil.saveSharedPreferences("y_suosl_tv",suosl_tv.getText().toString());
 		}else if(cur_axial.equals("Z")){			
 			msharePreferenceUtil.saveSharedPreferences("z_isjsfx",is_jsfx);
@@ -372,19 +451,47 @@ public class SettingChangeActivity extends EBaseActivity implements OnClickListe
 			msharePreferenceUtil.saveSharedPreferences("z_is_ssl",is_ssl);
 			
 			msharePreferenceUtil.saveSharedPreferences("z_mfbl", pos);
+			msharePreferenceUtil.saveSharedPreferences("z_sb_ylsz", sb_ylsz.getProgress());
+			msharePreferenceUtil.saveSharedPreferences("z_sb_ldsz", sb_ldsz.getProgress());
 			
-			msharePreferenceUtil.saveSharedPreferences("z_zhis_tv",zhis_tv.getText().toString());
-			msharePreferenceUtil.saveSharedPreferences("z_xxbc_tv",xxbc_tv.getText().toString());
-			
-			String sslstr = suosl_tv.getText().toString();
-			if(Float.parseFloat(sslstr)!= 0){
-				is_setting_ok = true;
-				msharePreferenceUtil.saveSharedPreferences("z_suosl_tv",sslstr);
+			if(is_zs == true){				
+				msharePreferenceUtil.saveSharedPreferences("z_zhis_tv",zhis_tv.getText().toString());
 			}else{
-				is_setting_ok = false;
-				Toast.makeText(getApplicationContext(), "缩水率不能为0", Toast.LENGTH_SHORT);
-				return;
+				msharePreferenceUtil.saveSharedPreferences("z_zhis_tv","0");
 			}
+			
+			if(is_xxbc == true){				
+				msharePreferenceUtil.saveSharedPreferences("z_xxbc_tv",xxbc_tv.getText().toString());
+			}else{
+				msharePreferenceUtil.saveSharedPreferences("z_xxbc_tv","0");
+			}
+						
+			if(is_ssl == true){				
+				String sslstr = suosl_tv.getText().toString();
+				if(Float.parseFloat(sslstr)!= 0){	
+					is_setting_ok = true;
+					msharePreferenceUtil.saveSharedPreferences("z_suosl_tv",sslstr);
+				}else{
+					is_setting_ok = false;
+					Toast.makeText(getApplicationContext(), "缩水率不能为0", Toast.LENGTH_SHORT);
+					return;
+				}
+			}else{
+				is_setting_ok = true;
+				msharePreferenceUtil.saveSharedPreferences("z_suosl_tv","1");
+			}
+			
+//			msharePreferenceUtil.saveSharedPreferences("z_xxbc_tv",xxbc_tv.getText().toString());
+//			
+//			String sslstr = suosl_tv.getText().toString();
+//			if(Float.parseFloat(sslstr)!= 0){
+//				is_setting_ok = true;
+//				msharePreferenceUtil.saveSharedPreferences("z_suosl_tv",sslstr);
+//			}else{
+//				is_setting_ok = false;
+//				Toast.makeText(getApplicationContext(), "缩水率不能为0", Toast.LENGTH_SHORT);
+//				return;
+//			}
 			//msharePreferenceUtil.saveSharedPreferences("z_suosl_tv",suosl_tv.getText().toString());
 		}
 		 

@@ -70,6 +70,9 @@ public class SharePreferenceUtil
 	}
 
 	public int loadIntSharedPreference(String key) {
+		if("z_mfbl".equals(key) || "y_mfbl".equals(key) || "x_mfbl".equals(key)){
+			return sharedpreferences.getInt(key, 6);	
+		}
 		return sharedpreferences.getInt(key, 0);
 	}
 

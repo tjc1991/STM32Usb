@@ -19,23 +19,26 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cldxk.stm32.utils.AxialManager;
 import com.cldxk.stm32.utils.NumberValidationUtils;
 import com.cldxk.stm32.utils.StmUsbCommond;
 import com.cldxk.stm32usb.task.StmUsbTask;
-import com.cldxk.stm32usb.task.StmUsbTask.AfterAsyncTaskCallback;
 import com.cldxk.stm32usb.ui.base.EBaseActivity;
 import com.ukmterm.stm32usb.Config;
-import com.ukmterm.stm32usb.MainActivity;
 import com.ukmterm.stm32usb.R;
 import com.ukmterm.stm32usb.Usb;
 import com.viewtool.USBDriver.ErrorType;
@@ -72,16 +75,25 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 	
 	//相对坐标下记录的XYZ轴数值
 	float x_tmpvalu = 0.0f;
-	float y_tmpvalue = 0.0f;
-	float z_tmpvalue = 0.0f;
+	float y_tmpvalu = 0.0f;
+	float z_tmpvalu = 0.0f;
 	
 	//当前计数值
 	float x_setnum = 0.0f;
 	float y_setnum = 0.0f;
 	float z_setnum = 0.0f;
 	
+	//XYZ轴显示1和显示2设置值
 	float dshow_xvalue = 0.0f;
 	float dshow_two_xvalue = 0.0f;
+	
+	float dshow_yvalue = 0.0f;
+	float dshow_two_yvalue = 0.0f;
+	
+	float dshow_zvalue = 0.0f;
+	float dshow_two_zvalue = 0.0f;
+	
+	
 	
 	
 	
@@ -196,13 +208,37 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 	 * 初始化标志位
 	 */
 	public void initFlagSetting(){
-		is_mm = msharePreferenceUtil.loadBooleanSharedPreference("is_mm");
-		is_abs = msharePreferenceUtil.loadBooleanSharedPreference("is_abs");
-		is_rd = msharePreferenceUtil.loadBooleanSharedPreference("is_rd");
+//		is_mm = msharePreferenceUtil.loadBooleanSharedPreference("is_mm");
+//		is_abs = msharePreferenceUtil.loadBooleanSharedPreference("is_abs");
+//		is_rd = msharePreferenceUtil.loadBooleanSharedPreference("is_rd");
 		
-		x_setnum = msharePreferenceUtil.loadFloatSharedPreference("x_setnum");
-		y_setnum = msharePreferenceUtil.loadFloatSharedPreference("y_setnum");
-		z_setnum = msharePreferenceUtil.loadFloatSharedPreference("z_setnum");
+		is_mm = false;
+		is_abs = false;
+		is_rd = false;
+		
+		String tx = msharePreferenceUtil.loadStringSharedPreference("x_zhis_tv", "0");
+		String ty = msharePreferenceUtil.loadStringSharedPreference("y_zhis_tv", "0");
+		String tz = msharePreferenceUtil.loadStringSharedPreference("z_zhis_tv", "0");
+		if(NumberValidationUtils.isRealNumber(tx) == true){
+			x_setnum = Float.parseFloat(tx);
+		}else{
+			x_setnum = 0.0f;	
+		}
+		
+		if(NumberValidationUtils.isRealNumber(ty) == true){
+			y_setnum = Float.parseFloat(ty);
+		}else{
+			y_setnum = 0.0f;	
+		}
+		
+		if(NumberValidationUtils.isRealNumber(tz) == true){
+			z_setnum = Float.parseFloat(tz);
+		}else{
+			z_setnum = 0.0f;	
+		}
+		
+//		y_setnum = msharePreferenceUtil.loadFloatSharedPreference("x_zhis_tv");
+//		z_setnum = msharePreferenceUtil.loadFloatSharedPreference("x_zhis_tv");
 		
 		//usb
 		isopenUsb = false;
@@ -213,8 +249,22 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 		
 		current_axial = 0;
 		
+		//X轴显示设置
+		x_tmpvalu = 0.0f;
 		dshow_xvalue = 0.0f;
 		dshow_two_xvalue = 0.0f;
+		
+		//Y轴显示设置
+		y_tmpvalu = 0.0f;
+		dshow_yvalue = 0.0f;
+		dshow_two_yvalue = 0.0f;
+		
+		//Z轴显示设置
+		z_tmpvalu = 0.0f;
+		dshow_zvalue = 0.0f;
+		dshow_two_zvalue = 0.0f;
+		
+		
 		
 	}
 
@@ -284,7 +334,7 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 					UsbDevice device = (UsbDevice) intent
 							.getParcelableExtra(UsbManager.EXTRA_DEVICE);
 					if (intent.getBooleanExtra(
-							UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
+							UsbManager.EXTRA_PERMISSION_GRANTED, true)) {
 						System.out.println("Authorization");
 						if (mUsbDevice != null) {
 							// run_set();
@@ -440,19 +490,17 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 		dshow_xvalue = xvalue - x_tmpvalu;
 		float dfinally_value = dshow_xvalue + x_setnum - dshow_two_xvalue;
 		
-		DecimalFormat decimalFormat=new DecimalFormat(".000");
+		dshow_yvalue = yvalue - y_tmpvalu;
+		float dfinally_yvalue = dshow_yvalue + y_setnum - dshow_two_yvalue;
 		
-		//String lastmoney = decimalFormat.format(xvalue);
+		dshow_zvalue = zvalue - z_tmpvalu;
+		float dfinally_zvalue = dshow_zvalue + z_setnum - dshow_two_zvalue;
 		
-//		float xvalue = ParaseXtoNumMsg(100);
-//		float yvalue = ParaseYtoNumMsg(121);
-//		float zvalue = ParaseZtoNumMsg(142);
+		DecimalFormat decimalFormat=new DecimalFormat("0.000");
 		
-		//tv_x.setText(decimalFormat.format(xvalue)+"");
 		tv_x.setText(decimalFormat.format(dfinally_value)+"");
-		tv_y.setText(decimalFormat.format(yvalue)+"");
-		tv_z.setText(decimalFormat.format(zvalue)+"");
-//		mtx_c.setText(bytesToInt(c_byte)+"");
+		tv_y.setText(decimalFormat.format(dfinally_yvalue)+"");
+		tv_z.setText(decimalFormat.format(dfinally_zvalue)+"");
 		
 	}
 	
@@ -642,6 +690,27 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 		z_xxbcstr = msharePreferenceUtil.loadStringSharedPreference("z_xxbc_tv", "0");
 		z_sslstr = msharePreferenceUtil.loadStringSharedPreference("z_suosl_tv", "1");
 		
+		String tx = msharePreferenceUtil.loadStringSharedPreference("x_zhis_tv", "0");
+		String ty = msharePreferenceUtil.loadStringSharedPreference("y_zhis_tv", "0");
+		String tz = msharePreferenceUtil.loadStringSharedPreference("z_zhis_tv", "0");
+		if(NumberValidationUtils.isRealNumber(tx) == true){
+			x_setnum = Float.parseFloat(tx);
+		}else{
+			x_setnum = 0.0f;	
+		}
+		
+		if(NumberValidationUtils.isRealNumber(ty) == true){
+			y_setnum = Float.parseFloat(ty);
+		}else{
+			y_setnum = 0.0f;	
+		}
+		
+		if(NumberValidationUtils.isRealNumber(tz) == true){
+			z_setnum = Float.parseFloat(tz);
+		}else{
+			z_setnum = 0.0f;	
+		}
+		
 		
 	    	    	    		    		    	
     }
@@ -673,9 +742,9 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
     	}
     
     if(x_zbjnum == true){
-    		zbjvalue = 1.0f;
+    		zbjvalue = 0.5f;
 	}else if(x_zbjnum == false){
-		zbjvalue = 0.5f;
+		zbjvalue = 1.0f;
 	}
     
     float xxbcvalue = Float.parseFloat(x_xxbcstr);
@@ -846,23 +915,27 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 				ShowDlgMsg();
 				
 			}else if(other_isok == true){
+				AxialManager.setAxialzs(current_axial, true);
 				startActivityForResult(new Intent(this, CalActivity.class),111);	
 			}
 		break;	
 		
 		case R.id.mm_btn:
 			if(cur_theme == false){
-				if(other_isok == true){						
+				if(other_isok == true){	
+					is_mm = CheckMm_Abs_Rd(current_axial, 1);
 					is_mm = !is_mm;
 					if(is_mm){
 						mm_btn.setBackgroundResource(R.drawable.mm_green_btn);
-						msharePreferenceUtil.saveSharedPreferences("is_mm", is_mm);
+//						msharePreferenceUtil.saveSharedPreferences("is_mm", is_mm);
 						ChangInchAndMm(current_axial,is_mm);
+						msharePreferenceUtil.saveSharedPreferences("is_mm", is_mm);
 						//msharePreferenceUtil.saveSharedPreferences(cur_axial.toLowerCase()+"_is_dwms", false);
 					}else{
 						mm_btn.setBackgroundResource(R.drawable.inch_green_btn);
-						msharePreferenceUtil.saveSharedPreferences("is_mm", is_mm);
+//						msharePreferenceUtil.saveSharedPreferences("is_mm", is_mm);
 						ChangInchAndMm(current_axial,is_mm);
+						msharePreferenceUtil.saveSharedPreferences("is_mm", is_mm);
 						//msharePreferenceUtil.saveSharedPreferences(cur_axial.toLowerCase()+"_is_dwms", true);
 					}
 				}else if(other_isok == false){				
@@ -875,17 +948,20 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 		case R.id.abs_btn:
 			if(cur_theme == false){
 				
-				if(other_isok == true){					
+				if(other_isok == true){	
+					is_abs = CheckMm_Abs_Rd(current_axial, 2);
 					is_abs = !is_abs;
 					if(is_abs){
 						abs_btn.setBackgroundResource(R.drawable.abs_green_btn);
-						msharePreferenceUtil.saveSharedPreferences("is_abs", is_abs);
+//						msharePreferenceUtil.saveSharedPreferences("is_abs", is_abs);
 						ChangAbsAndInc(current_axial, is_abs);
+						msharePreferenceUtil.saveSharedPreferences("is_abs", is_abs);
 						//msharePreferenceUtil.saveSharedPreferences(cur_axialy.toLowerCase()+"_is_zbms", false);
 					}else{						
 						abs_btn.setBackgroundResource(R.drawable.inc_green_btn);
-						msharePreferenceUtil.saveSharedPreferences("is_abs", is_abs);
+//						msharePreferenceUtil.saveSharedPreferences("is_abs", is_abs);
 						ChangAbsAndInc(current_axial, is_abs);
+						msharePreferenceUtil.saveSharedPreferences("is_abs", is_abs);
 						//msharePreferenceUtil.saveSharedPreferences(cur_axialy.toLowerCase()+"_is_zbms", true);
 					}
 				}else if(other_isok == false){				
@@ -897,17 +973,20 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 			
 		case R.id.rd_btn:
 			if(cur_theme == false){
-				if(other_isok == true){					
+				if(other_isok == true){	
+					is_rd = CheckMm_Abs_Rd(current_axial, 3);
 					is_rd = !is_rd;
 					if(is_rd){
 						rd_btn.setBackgroundResource(R.drawable.rd_green_btn);
-						msharePreferenceUtil.saveSharedPreferences("is_rd", is_mm);
+//						msharePreferenceUtil.saveSharedPreferences("is_rd", is_mm);
 						ChangRAndD(current_axial,is_rd);
+						msharePreferenceUtil.saveSharedPreferences("is_rd", is_rd);
 						//msharePreferenceUtil.saveSharedPreferences(cur_axialz.toLowerCase()+"_is_zbj", true);
 					}else{
 						rd_btn.setBackgroundResource(R.drawable.rd_d_green_btn);
-						msharePreferenceUtil.saveSharedPreferences("is_rd", is_mm);
+//						msharePreferenceUtil.saveSharedPreferences("is_rd", is_mm);
 						ChangRAndD(current_axial,is_rd);
+						msharePreferenceUtil.saveSharedPreferences("is_rd", is_rd);
 						//msharePreferenceUtil.saveSharedPreferences(cur_axialz.toLowerCase()+"_is_zbj", true);
 					}
 				}else if(other_isok == false){				
@@ -921,6 +1000,88 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 			break;
 		}
 	}
+	
+	/**
+	 * 检测MM/ABS/RD标志位
+	 * @param axial
+	 * @return
+	 */
+	Boolean CheckMm_Abs_Rd(int axial, int category){
+		Boolean cur_flag = false;
+		
+		switch (axial) {
+		case 1:
+			{
+				switch (category) {
+				case 1:
+						//mm/inch
+				cur_flag = msharePreferenceUtil.loadBooleanSharedPreference("x_is_dwms"); 
+					break;
+				case 2:
+					//abs/inc
+				 cur_flag = msharePreferenceUtil.loadBooleanSharedPreference("x_is_zbms"); 
+				break;
+				case 3:
+					//r/d
+				 cur_flag = msharePreferenceUtil.loadBooleanSharedPreference("x_is_zbj"); 
+				break;
+
+				default:
+					break;
+				}
+			}
+			break;
+			
+		case 2:
+		{
+			switch (category) {
+			case 1:
+					//mm/inch
+			cur_flag = msharePreferenceUtil.loadBooleanSharedPreference("y_is_dwms"); 
+				break;
+			case 2:
+				//abs/inc
+			 cur_flag = msharePreferenceUtil.loadBooleanSharedPreference("y_is_zbms"); 
+			break;
+			case 3:
+				//r/d
+			 cur_flag = msharePreferenceUtil.loadBooleanSharedPreference("y_is_zbj"); 
+			break;
+
+			default:
+				break;
+			}
+		}
+			break;
+		case 3:
+		{
+			switch (category) {
+			case 1:
+					//mm/inch
+			cur_flag = msharePreferenceUtil.loadBooleanSharedPreference("z_is_dwms"); 
+				break;
+			case 2:
+				//abs/inc
+			 cur_flag = msharePreferenceUtil.loadBooleanSharedPreference("z_is_zbms"); 
+			break;
+			case 3:
+				//r/d
+			 cur_flag = msharePreferenceUtil.loadBooleanSharedPreference("z_is_zbj"); 
+			break;
+
+			default:
+				break;
+			}
+		}
+			break;
+
+		default:
+			break;
+		}
+		
+		return cur_flag;
+	}
+	
 	
 	@Override
 	protected void onStop() {
@@ -1037,9 +1198,13 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 	}
 	
 	public void ShowClearDlgMsg(final int index) {
+	
+		if(AxialManager.getAxialQltx(index) == false){
+			ClearAxialToZero(index);
+			return;
+		}
 		
-		//Log.i("tjc", "---->");
-		final AlertDialog.Builder builder = new AlertDialog.Builder(
+	final AlertDialog.Builder builder = new AlertDialog.Builder(
 				this);
 		final Dialog dialog = builder.show();
 		//不可触摸取消
@@ -1047,6 +1212,18 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 		
 		Window window = dialog.getWindow();
 		window.setContentView(R.layout.clear_dialog);
+		CheckBox showcheck = (CheckBox) window.findViewById(R.id.qltx_checkbox);
+		showcheck.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				// TODO Auto-generated method stub
+				
+				if(isChecked == true){
+					AxialManager.setAxialQltx(index, false);
+				}
+			}
+		});
 		Button logout = (Button) window.findViewById(R.id.confirm_btn);
 		logout.setOnClickListener(new OnClickListener() {
 
@@ -1055,52 +1232,7 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 				// TODO Auto-generated method stub
 
 				dialog.dismiss();
-				switch (index) {
-				case 1:
-					if(msharePreferenceUtil.loadBooleanSharedPreference("x_is_zbms") == true){
-						//相对模式下,记录当前显示值
-						String xstr = tv_x.getText().toString();
-						Log.i("tjc", "xstr="+xstr);
-						if(NumberValidationUtils.isRealNumber(xstr)){
-							
-							x_tmpvalu = Float.parseFloat(xstr);
-							Log.i("tjc", "msg="+x_tmpvalu+"");
-							
-							//clear to 0
-							x_setnum = 0.0f;
-							dshow_two_xvalue = 0.0f;
-							
-							}	
-						}else{	
-							//绝对坐标下清0
-							x_tmpvalu = 0.0f;
-							tv_x.setText("0");
-							StmUsbTask taskclearx = new StmUsbTask(mUsbDriver);
-							taskclearx.execute(StmUsbCommond.CMD_CLEAR_X_AXIAL);
-						}
-					break;
-					
-				case 2:
-					tv_y.setText("0");
-					StmUsbTask taskcleary = new StmUsbTask(mUsbDriver);
-					taskcleary.execute(StmUsbCommond.CMD_CLEAR_Y_AXIAL);
-					break;
-					
-				case 3:
-					tv_z.setText("0");
-					StmUsbTask taskclearz = new StmUsbTask(mUsbDriver);
-					taskclearz.execute(StmUsbCommond.CMD_CLEAR_Z_AXIAL);
-					break;
-					
-				case 4:
-					StmUsbTask taskclearc = new StmUsbTask(mUsbDriver);
-					taskclearc.execute(StmUsbCommond.CMD_CLEAR_C_AXIAL);
-					break;
-
-				default:
-					break;
-				}
-				
+				ClearAxialToZero(index);
 
 			}
 		});
@@ -1153,12 +1285,46 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 	                Bundle bundle=data.getExtras();  
 	                String str=bundle.getString("cal"); 
 	                
-	                //置数值
-	                dshow_two_xvalue = dshow_xvalue;
+	                switch (current_axial) {
+					case 1:
+						{							
+							//置数值
+							dshow_two_xvalue = dshow_xvalue;
+							
+							x_setnum = Float.parseFloat(str);
+							AxialManager.setAxialzsValue(current_axial, str);
+							
+							Toast.makeText(this, x_setnum+"", Toast.LENGTH_SHORT).show();  
+						}
+						break;
+						
+					case 2:
+					{							
+						//置数值
+						dshow_two_yvalue = dshow_yvalue;
+						
+						y_setnum = Float.parseFloat(str);
+						AxialManager.setAxialzsValue(current_axial, str);
+						
+						Toast.makeText(this, y_setnum+"", Toast.LENGTH_SHORT).show();  
+					}
+					break;
+					
+					case 3:
+					{							
+						//置数值
+						dshow_two_zvalue = dshow_zvalue;
+						
+						z_setnum = Float.parseFloat(str);
+						AxialManager.setAxialzsValue(current_axial, str);
+						Toast.makeText(this, z_setnum+"", Toast.LENGTH_SHORT).show();  
+					}
+					break;
+
+					default:
+						break;
+					}
 	                
-	                x_setnum = Float.parseFloat(str);
-	                
-	                Toast.makeText(this, x_setnum+"", Toast.LENGTH_SHORT).show();  
 	            }  
 	        } 
 	        
@@ -1167,6 +1333,107 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 	 
 	 public void showMsg(String msg){
 		 Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();;
+	 }
+	 
+	 /**
+	  * 对XYZ轴清零
+	  * @param index
+	  */
+	 public void ClearAxialToZero(int index){
+		 
+			switch (index) {
+			case 1:
+				if(msharePreferenceUtil.loadBooleanSharedPreference("x_is_zbms") == false){
+					//相对模式下,记录当前显示值
+					String xstr = tv_x.getText().toString();
+					Log.i("tjc", "xstr="+xstr);
+					if(NumberValidationUtils.isRealNumber(xstr)){
+						
+						x_tmpvalu = Float.parseFloat(xstr);
+						Log.i("tjc", "msg="+x_tmpvalu+"");
+						
+//						//clear to 0
+//						x_setnum = 0.0f;
+//						dshow_two_xvalue = 0.0f;
+//						AxialManager.setAxialzsValue(1,"0");
+						
+						}	
+					}else{	
+						//绝对坐标下清0
+						x_tmpvalu = 0.0f;
+						tv_x.setText("0");
+						StmUsbTask taskclearx = new StmUsbTask(mUsbDriver);
+						taskclearx.execute(StmUsbCommond.CMD_CLEAR_X_AXIAL);
+					}
+				//clear to 0
+				x_setnum = 0.0f;
+				dshow_two_xvalue = 0.0f;
+				AxialManager.setAxialzsValue(1,"0");
+				break;
+				
+			case 2:
+				if(msharePreferenceUtil.loadBooleanSharedPreference("y_is_zbms") == false){
+					//相对模式下,记录当前显示值
+					String xstr = tv_y.getText().toString();
+					Log.i("tjc", "ystr="+xstr);
+					if(NumberValidationUtils.isRealNumber(xstr)){
+						
+						y_tmpvalu = Float.parseFloat(xstr);
+						Log.i("tjc", "msg="+y_tmpvalu+"");
+						
+//						//clear to 0
+//						y_setnum = 0.0f;
+//						dshow_two_yvalue = 0.0f;
+						
+						}	
+					}else{	
+						//绝对坐标下清0
+						y_tmpvalu = 0.0f;
+						tv_y.setText("0");
+						StmUsbTask taskcleary = new StmUsbTask(mUsbDriver);
+						taskcleary.execute(StmUsbCommond.CMD_CLEAR_Y_AXIAL);
+					}
+				//clear to 0
+				y_setnum = 0.0f;
+				dshow_two_yvalue = 0.0f;
+				AxialManager.setAxialzsValue(2,"0");
+				break;
+				
+			case 3:
+				if(msharePreferenceUtil.loadBooleanSharedPreference("z_is_zbms") == false){
+					//相对模式下,记录当前显示值
+					String xstr = tv_z.getText().toString();
+					Log.i("tjc", "zstr="+xstr);
+					if(NumberValidationUtils.isRealNumber(xstr)){
+						
+						z_tmpvalu = Float.parseFloat(xstr);
+						Log.i("tjc", "msg="+z_tmpvalu+"");
+						
+						//clear to 0
+						//z_setnum = 0.0f;
+						//dshow_two_zvalue = 0.0f;
+						
+						}	
+					}else{	
+						//绝对坐标下清0
+						z_tmpvalu = 0.0f;
+						tv_z.setText("0");
+						StmUsbTask taskclearz = new StmUsbTask(mUsbDriver);
+						taskclearz.execute(StmUsbCommond.CMD_CLEAR_Z_AXIAL);
+					}	
+				//clear to 0
+				z_setnum = 0.0f;
+				dshow_two_zvalue = 0.0f;
+				AxialManager.setAxialzsValue(3,"0");
+					break;
+			case 4:
+//				StmUsbTask taskclearc = new StmUsbTask(mUsbDriver);
+//				taskclearc.execute(StmUsbCommond.CMD_CLEAR_C_AXIAL);
+				break;
+
+			default:
+				break;
+			} 
 	 }
 	 
 	//改变模式图片

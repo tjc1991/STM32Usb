@@ -1,5 +1,6 @@
 package com.cldxk.stm32.ui;
 
+import com.cldxk.stm32.utils.AxialManager;
 import com.cldxk.stm32usb.ui.base.EBaseActivity;
 import com.ukmterm.stm32usb.R;
 
@@ -32,6 +33,15 @@ public class StartActivity extends EBaseActivity implements OnClickListener{
 		mENButton.setOnClickListener(this);
 		lv = findLinearLayoutById(R.id.start_lv);
 		
+		FirstStartApp();
+		
+	}
+	
+	public void FirstStartApp(){
+		
+		if(msharePreferenceUtil.loadBooleanSharedPreference("firststart") == false){
+			AxialManager.resetAllAxial();
+		}
 	}
 
 	@Override

@@ -220,7 +220,8 @@ public class CalActivity extends EBaseActivity implements OnClickListener{
 		if(strbuild.length()>0){
 			
 			if(strbuild.charAt(0) == '0'){
-				if(strbuild.length()>=1){
+				//>=1
+				if(strbuild.length()>1){
 					if(strbuild.charAt(1)!= '.'){
 						strbuild.deleteCharAt(strbuild.length()-1);
 						return;

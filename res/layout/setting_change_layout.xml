@@ -19,8 +19,8 @@
            android:id="@+id/cur_axal_tv"
            android:layout_width="120dp"
            android:layout_height="wrap_content"
-           android:layout_gravity="center_vertical"
-           android:layout_marginLeft="200dp"
+           android:layout_gravity="center_horizontal"
+           android:gravity="center_horizontal"
            android:layout_marginTop="12dp"
            android:text=""
            android:textSize="30sp" />
@@ -33,21 +33,22 @@
         
        <LinearLayout
 	            android:layout_width="fill_parent"	            
-	            android:layout_height="wrap_content"	            	       
+	            android:layout_height="wrap_content"	           	       
 	            android:orientation="vertical" >
         
        	<LinearLayout
 	            android:layout_width="fill_parent"	            
 	            android:layout_height="wrap_content"	            
 	            android:background="@drawable/bg_ratio"
+	            android:layout_weight="1"
+	            android:gravity="right"
 	            android:orientation="horizontal" >
                        
             <Spinner
                 android:id="@+id/sp_fenbl"
                 android:layout_width="150dp"
                 android:layout_height="44dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="210dp"
+                android:layout_marginRight="10dp"
                 android:entries="@array/fenbl"
                 android:spinnerMode="dropdown" />           
         </LinearLayout> 
@@ -56,6 +57,8 @@
             android:layout_width="fill_parent"
             android:layout_height="44dp"
             android:layout_marginTop="10dp"
+            android:layout_weight="1"
+	        android:gravity="right"
             android:background="@drawable/bg_count"
             android:orientation="horizontal" >
             
@@ -63,8 +66,8 @@
                android:id="@+id/jsfx_btn"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
+	            android:layout_marginRight="10dp"
 	            android:layout_gravity="center_vertical"
-	            android:layout_marginLeft="@dimen/right_size"
 	            android:background="@drawable/count_forward" />           
         </LinearLayout>
         
@@ -72,6 +75,8 @@
             android:layout_width="fill_parent"
             android:layout_height="44dp"
             android:layout_marginTop="10dp"
+            	android:layout_weight="1"
+	        android:gravity="right"
             android:background="@drawable/bg_unit"
             android:orientation="horizontal" >
             
@@ -79,8 +84,8 @@
                android:id="@+id/dwms_btn"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
+	            android:layout_marginRight="10dp"
 	            android:layout_gravity="center_vertical"
-	            android:layout_marginLeft="@dimen/right_size"
 	            android:background="@drawable/unit_mm" />           
         </LinearLayout>
         
@@ -88,6 +93,8 @@
             android:layout_width="fill_parent"
             android:layout_height="44dp"
             android:layout_marginTop="10dp"
+            	android:layout_weight="1"
+	        android:gravity="right"            
             android:background="@drawable/bg_coordinate"
             android:orientation="horizontal" >
             
@@ -95,8 +102,8 @@
                android:id="@+id/zbms_btn"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
+	            android:layout_marginRight="10dp"
 	            android:layout_gravity="center_vertical"
-	            android:layout_marginLeft="@dimen/right_size"
 	            android:background="@drawable/coordinate_abs" />           
         </LinearLayout>
         
@@ -104,6 +111,8 @@
             android:layout_width="fill_parent"
             android:layout_height="44dp"
             android:layout_marginTop="10dp"
+            	android:layout_weight="1"
+	        android:gravity="right"            
             android:background="@drawable/bg_zhibanjing"
             android:orientation="horizontal" >
             
@@ -111,8 +120,8 @@
                android:id="@+id/zhibj_btn"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
+	            android:layout_marginRight="10dp"	            
 	            android:layout_gravity="center_vertical"
-	            android:layout_marginLeft="@dimen/right_size"
 	            android:background="@drawable/button_radius" />           
         </LinearLayout>
         
@@ -120,6 +129,8 @@
             android:layout_width="fill_parent"
             android:layout_height="44dp"
             android:layout_marginTop="10dp"
+            	android:layout_weight="1"
+	        android:gravity="right"            
             android:background="@drawable/bg_clear"
             android:orientation="horizontal" >
             
@@ -127,8 +138,8 @@
                android:id="@+id/qltx_btn"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
+	            android:layout_marginRight="10dp"
 	            android:layout_gravity="center_vertical"
-	            android:layout_marginLeft="@dimen/right_size"
 	            android:background="@drawable/button_off" />           
         </LinearLayout>
         
@@ -137,6 +148,8 @@
             android:layout_height="44dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/bg_zhishu"
+            android:layout_weight="1"
+	        android:gravity="right"
             android:orientation="horizontal" >
            
            <TextView
@@ -152,8 +165,8 @@
                android:id="@+id/zhis_btn"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
+	            android:layout_marginRight="10dp"
 	            android:layout_gravity="center_vertical"
-	            android:layout_marginStart="20dp"
 	            android:background="@drawable/button_off" />           
         </LinearLayout>
         
@@ -161,6 +174,8 @@
             android:layout_width="fill_parent"
             android:layout_height="44dp"
             android:layout_marginTop="10dp"
+            	android:layout_weight="1"
+	        android:gravity="right"            
             android:background="@drawable/bg_linear"
             android:orientation="horizontal" >
            
@@ -177,8 +192,8 @@
                android:id="@+id/xxbc_btn"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
+	            android:layout_marginRight="10dp"
 	            android:layout_gravity="center_vertical"
-	            android:layout_marginStart="20dp"
 	            android:background="@drawable/button_off" />           
         </LinearLayout>
         
@@ -186,6 +201,8 @@
             android:layout_width="fill_parent"
             android:layout_height="44dp"
             android:layout_marginTop="10dp"
+            	android:layout_weight="1"
+	        android:gravity="right"            
             android:background="@drawable/bg_shrinkage_rate"
             android:orientation="horizontal" >
            
@@ -202,8 +219,8 @@
                android:id="@+id/suosl_btn"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
+	            android:layout_marginRight="10dp"
 	            android:layout_gravity="center_vertical"
-	            android:layout_marginStart="20dp"
 	            android:background="@drawable/button_off" />           
         </LinearLayout>
         
@@ -211,6 +228,8 @@
             android:layout_width="fill_parent"
             android:layout_height="44dp"
             android:layout_marginTop="10dp"
+            	android:layout_weight="1"
+	        android:gravity="right"            
             android:background="@drawable/bg_volume"
             android:orientation="horizontal" >
                       
@@ -219,8 +238,7 @@
                 android:layout_width="300dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="200dp"
-                android:layout_marginStart="200dp"
+                android:layout_marginRight="10dp"
 			    />         
         </LinearLayout>
         
@@ -228,6 +246,8 @@
             android:layout_width="fill_parent"
             android:layout_height="44dp"
             android:layout_marginTop="10dp"
+           	android:layout_weight="1"
+	        android:gravity="right"
             android:background="@drawable/bg_luminance"
             android:orientation="horizontal" >
                       
@@ -235,9 +255,7 @@
 			    android:id="@+id/sb_ldsz"
                 android:layout_width="300dp"
                 android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="200dp"
-                android:layout_marginStart="200dp"
+                android:layout_marginRight="10dp"
 			    />         
         </LinearLayout>
         
@@ -245,6 +263,8 @@
 	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_marginTop="10dp"
+            		android:layout_weight="1"
+	        		android:gravity="right"	            
 	            android:background="@drawable/bg_theme"
 	            android:orientation="horizontal" >
                        
@@ -252,8 +272,7 @@
                 android:id="@+id/sp_xtzt"
                 android:layout_width="150dp"
                 android:layout_height="44dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="210dp"
+                android:layout_marginRight="10dp"
                 android:entries="@array/ztfg"
                 android:spinnerMode="dropdown" />           
         </LinearLayout>
@@ -262,6 +281,8 @@
 	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_marginTop="10dp"
+            		android:layout_weight="1"
+	        		android:gravity="right"	            
 	            android:background="@drawable/bg_language"
 	            android:orientation="horizontal" >
                        
@@ -269,8 +290,7 @@
                 android:id="@+id/sp_xtyy"
                 android:layout_width="150dp"
                 android:layout_height="44dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="210dp"
+                android:layout_marginRight="10dp"
                 android:entries="@array/xtyy"
                 android:spinnerMode="dropdown" />           
         </LinearLayout> 
