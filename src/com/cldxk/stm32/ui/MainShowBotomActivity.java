@@ -48,6 +48,7 @@ import com.viewtool.USBDriver.UsbDriver.UsbFace;
 @SuppressLint("ResourceAsColor")
 public class MainShowBotomActivity extends EBaseActivity implements OnClickListener{
 	
+	
 	//数值配置类
 	String x_fblstr = "";
 	Boolean x_jsfxnum = false;
@@ -92,11 +93,7 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 	
 	float dshow_zvalue = 0.0f;
 	float dshow_two_zvalue = 0.0f;
-	
-	
-	
-	
-	
+		
 	String[] fblarray = {"0.1um","0.2um","0.25um","0.5um","1um","2um","5um","10um","20um"};
 	
 	//布局类
@@ -487,20 +484,43 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 		float yvalue = ParaseYtoNumMsg(bytesToInt(y_byte));
 		float zvalue = ParaseZtoNumMsg(bytesToInt(z_byte));
 		
-		dshow_xvalue = xvalue - x_tmpvalu;
-		float dfinally_value = dshow_xvalue + x_setnum - dshow_two_xvalue;
+		float dfinally_value = 0.0f;		
+		if(x_dwmsnum ==true){			
+			dshow_xvalue = xvalue - x_tmpvalu;
+			dfinally_value = dshow_xvalue + x_setnum - dshow_two_xvalue;
+
+		}else{
+			dshow_xvalue = xvalue - x_tmpvalu*(float)(1/25.4);
+			dfinally_value = dshow_xvalue + x_setnum*(float)(1/25.4) - dshow_two_xvalue*(float)(1/25.4);
+
+		}
 		
-		dshow_yvalue = yvalue - y_tmpvalu;
-		float dfinally_yvalue = dshow_yvalue + y_setnum - dshow_two_yvalue;
+		float dfinally_yvalue = 0.0f;
+		if(y_dwmsnum == true){			
+			dshow_yvalue = yvalue - y_tmpvalu;
+			dfinally_yvalue = dshow_yvalue + y_setnum - dshow_two_yvalue*(float)(1/25.4);
+
+		}else{
+			dshow_yvalue = yvalue - y_tmpvalu*(float)(1/25.4);
+			dfinally_yvalue = dshow_yvalue + y_setnum*(float)(1/25.4) - dshow_two_yvalue*(float)(1/25.4);
+		}
 		
-		dshow_zvalue = zvalue - z_tmpvalu;
-		float dfinally_zvalue = dshow_zvalue + z_setnum - dshow_two_zvalue;
+		float dfinally_zvalue = 0.0f;
+		if(z_dwmsnum == true){			
+			dshow_zvalue = zvalue - z_tmpvalu;
+			dfinally_zvalue = dshow_zvalue + z_setnum - dshow_two_zvalue;
+		}else{
+			dshow_zvalue = zvalue - z_tmpvalu*(float)(1/25.4);
+			dfinally_zvalue = dshow_zvalue + z_setnum*(float)(1/25.4) - dshow_two_zvalue*(float)(1/25.4);
+		}
 		
 		DecimalFormat decimalFormat=new DecimalFormat("0.000");
 		
 		tv_x.setText(decimalFormat.format(dfinally_value)+"");
 		tv_y.setText(decimalFormat.format(dfinally_yvalue)+"");
 		tv_z.setText(decimalFormat.format(dfinally_zvalue)+"");
+		//tv_y.setText(xvalue+"");
+		//tv_z.setText(x_tmpvalu+"");
 		
 	}
 	
@@ -817,6 +837,7 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
     	
     if(z_dwmsnum == true){
     		dwmsvalue = 1.0f;
+    		
     	}else if(z_dwmsnum == false){
     		dwmsvalue = (float) (1/25.4);
     	}
@@ -832,7 +853,7 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
     float fblvalue = Float.parseFloat(newfblstr);
     
     return (num*fblvalue*jsfxvalue*dwmsvalue*zbjvalue)/((1-xxbcvalue)*sslvalue);
-    //return 1.0f;   	
+    //return 2.0f;   	
     	
     }
 	
@@ -1288,8 +1309,12 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 	                switch (current_axial) {
 					case 1:
 						{							
-							//置数值
-							dshow_two_xvalue = dshow_xvalue;
+							//置数值//标准化为mm
+							if(x_dwmsnum == true){								
+								dshow_two_xvalue = dshow_xvalue;
+							}else{
+								dshow_two_xvalue = dshow_xvalue*(float)25.4;	
+							}
 							
 							x_setnum = Float.parseFloat(str);
 							AxialManager.setAxialzsValue(current_axial, str);
@@ -1301,7 +1326,11 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 					case 2:
 					{							
 						//置数值
-						dshow_two_yvalue = dshow_yvalue;
+						if(y_dwmsnum == true){							
+							dshow_two_yvalue = dshow_yvalue;
+						}else{
+							dshow_two_yvalue = dshow_yvalue*(float)25.4;	
+						}
 						
 						y_setnum = Float.parseFloat(str);
 						AxialManager.setAxialzsValue(current_axial, str);
@@ -1313,7 +1342,11 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 					case 3:
 					{							
 						//置数值
-						dshow_two_zvalue = dshow_zvalue;
+						if(z_dwmsnum == true){							
+							dshow_two_zvalue = dshow_zvalue;
+						}else{
+							dshow_two_zvalue = dshow_zvalue*(float)25.4;
+						}
 						
 						z_setnum = Float.parseFloat(str);
 						AxialManager.setAxialzsValue(current_axial, str);
@@ -1339,18 +1372,27 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 	  * 对XYZ轴清零
 	  * @param index
 	  */
-	 public void ClearAxialToZero(int index){
+	 @SuppressLint("ShowToast")
+	public void ClearAxialToZero(int index){
 		 
 			switch (index) {
 			case 1:
 				if(msharePreferenceUtil.loadBooleanSharedPreference("x_is_zbms") == false){
 					//相对模式下,记录当前显示值
 					String xstr = tv_x.getText().toString();
-					Log.i("tjc", "xstr="+xstr);
+					//Toast.makeText(getApplicationContext(), "xstr="+xstr+"", Toast.LENGTH_SHORT);
+
 					if(NumberValidationUtils.isRealNumber(xstr)){
 						
-						x_tmpvalu = Float.parseFloat(xstr);
+						if(x_dwmsnum == true){							
+							x_tmpvalu = Float.parseFloat(xstr);
+						}else{
+							x_tmpvalu = Float.parseFloat(xstr)*(float)(25.4);
+						}
+						
+						//x_tmpvalu++;
 						Log.i("tjc", "msg="+x_tmpvalu+"");
+						Toast.makeText(getApplicationContext(), "x_tmpvalu="+x_tmpvalu+"", Toast.LENGTH_SHORT).show();
 						
 //						//clear to 0
 //						x_setnum = 0.0f;
@@ -1378,7 +1420,12 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 					Log.i("tjc", "ystr="+xstr);
 					if(NumberValidationUtils.isRealNumber(xstr)){
 						
-						y_tmpvalu = Float.parseFloat(xstr);
+						if(y_dwmsnum == true){							
+							y_tmpvalu = Float.parseFloat(xstr);
+						}else{
+							y_tmpvalu = Float.parseFloat(xstr)*(float)(25.4);
+						}
+						//y_tmpvalu = Float.parseFloat(xstr);
 						Log.i("tjc", "msg="+y_tmpvalu+"");
 						
 //						//clear to 0
@@ -1406,7 +1453,12 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 					Log.i("tjc", "zstr="+xstr);
 					if(NumberValidationUtils.isRealNumber(xstr)){
 						
-						z_tmpvalu = Float.parseFloat(xstr);
+						if(z_dwmsnum == true){							
+							z_tmpvalu = Float.parseFloat(xstr);
+						}else{
+							z_tmpvalu = Float.parseFloat(xstr)*(float)(25.4);
+						}
+						//z_tmpvalu = Float.parseFloat(xstr);
 						Log.i("tjc", "msg="+z_tmpvalu+"");
 						
 						//clear to 0
@@ -1517,26 +1569,4 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 			}
 						
 		}
-	 
-	 
-	 
-
-//	@Override
-//	public void afterDoTask(int taskid) {
-//		// TODO Auto-generated method stub
-//		
-//		switch (taskid) {
-//		case StmUsbCommond.CMD_INIT_USB:
-//			
-//			break;
-//
-//		default:
-//			break;
-//		}
-//		
-//	}
-	 
-	 
-
-
 }
