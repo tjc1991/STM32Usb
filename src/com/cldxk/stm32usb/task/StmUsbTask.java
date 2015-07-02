@@ -5,6 +5,7 @@ import com.ukmterm.stm32usb.Config;
 import com.viewtool.USBDriver.UsbDriver;
 
 import android.os.AsyncTask;
+import android.os.Message;
 import android.widget.Switch;
 
 /**
@@ -18,21 +19,24 @@ public class StmUsbTask extends AsyncTask<Integer, Void, Void>{
 	AfterAsyncTaskCallback callback = null;
 	int taskid = 0;
 	
+	byte[] ReadDataEP1 = new byte[24];
+	
 	public StmUsbTask(UsbDriver mUsbDriver) {
 		// TODO Auto-generated constructor stub
 		super();
 		
 		this.mUsbDriver = mUsbDriver;
+		this.taskid = 0;
 		
 	}
 	
-	public StmUsbTask(UsbDriver mUsbDriver,AfterAsyncTaskCallback callback,int taskid) {
+	public StmUsbTask(UsbDriver mUsbDriver,AfterAsyncTaskCallback callback) {
 		// TODO Auto-generated constructor stub
 		super();
 		
 		this.mUsbDriver = mUsbDriver;
 		this.callback = callback;
-		this.taskid = taskid;
+		this.taskid = 1;
 	}
 
 	@Override
@@ -55,6 +59,24 @@ public class StmUsbTask extends AsyncTask<Integer, Void, Void>{
 			//对Z轴进行清零操作
 			ClearXyzc(StmUsbCommond.CMD_CLEAR_Z_AXIAL);
 			break;
+			
+		case StmUsbCommond.CMD_SEARCH_XAXIAL_ZERO:
+			//对X轴进行寻零
+			ClearXyzc(StmUsbCommond.CMD_SEARCH_XAXIAL_ZERO);
+			Analysic_AxialZeroData();
+			break;
+			
+		case StmUsbCommond.CMD_SEARCH_YAXIAL_ZERO:
+			//对Y轴进行寻零
+			ClearXyzc(StmUsbCommond.CMD_SEARCH_YAXIAL_ZERO);
+			Analysic_AxialZeroData();
+			break;
+			
+		case StmUsbCommond.CMD_SEARCH_ZAXIAL_ZERO:
+			//对Z轴进行寻零
+			ClearXyzc(StmUsbCommond.CMD_SEARCH_ZAXIAL_ZERO);
+			Analysic_AxialZeroData();
+			break;
 
 		default:
 			break;
@@ -68,8 +90,10 @@ public class StmUsbTask extends AsyncTask<Integer, Void, Void>{
 		// TODO Auto-generated method stub
 		super.onPostExecute(result);
 		
-		//callback
-		//this.callback.afterDoTask(taskid);
+		if(this.taskid == 1){			
+			//callback
+			this.callback.afterDoTask(ReadDataEP1);
+		}
 		
 	}
 	
@@ -93,9 +117,21 @@ public class StmUsbTask extends AsyncTask<Integer, Void, Void>{
 		}	
 	}
 	
+	public void Analysic_AxialZeroData(){
+		
+		int i_USBReadData_ep1 = mUsbDriver.USBReadData(Config.EP1_IN, ReadDataEP1,
+				24, 500);
+		if (i_USBReadData_ep1 != 24) {
+			System.out.println("USBReadData error");
+		} else {
+			//正确返回数据
+			System.out.println("USBReadData success");
+		}	
+	}
+	
 	public interface AfterAsyncTaskCallback{
 		
-		public void afterDoTask(int taskid);
+		public void afterDoTask(byte[] readdata);
 	}
 	
 	

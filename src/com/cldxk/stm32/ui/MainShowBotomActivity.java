@@ -2,6 +2,7 @@ package com.cldxk.stm32.ui;
 
 import java.text.DecimalFormat;
 
+import net.sf.andpdf.pdfviewer.PdfViewerActivity;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -124,6 +125,8 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 	private Boolean cur_theme = false;
 	private boolean isrun;
 	
+	private boolean usb_enable = false;
+	
 	//USB操作类
 	// 权限
 	private static final String ACTION_USB_PERMISSION = "com.viewtool.ginkgotest.USB_PERMISSION";
@@ -212,6 +215,9 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 		is_mm = false;
 		is_abs = false;
 		is_rd = false;
+		
+		usb_enable = true;
+
 		
 		String tx = msharePreferenceUtil.loadStringSharedPreference("x_zhis_tv", "0");
 		String ty = msharePreferenceUtil.loadStringSharedPreference("y_zhis_tv", "0");
@@ -421,7 +427,10 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 				public void run() {
 					// TODO Auto-generated method stub
 					while(isrun == true){
-						deal_EP1task();
+						
+						if(usb_enable == true){							
+							deal_EP1task();
+						}
 						try {
 							Thread.sleep(100);
 						} catch (InterruptedException e) {
@@ -1017,6 +1026,88 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 			}
 			break;
 			
+		case R.id.ref_btn:
+			ref_btn.setBackgroundResource(R.drawable.button_ref_down_green);
+			usb_enable = false;
+			if(cur_theme == false){
+				if(other_isok == true){	
+					is_abs = CheckMm_Abs_Rd(current_axial, 2);
+					if(is_abs){
+					}else{
+						is_abs = !is_abs;
+						abs_btn.setBackgroundResource(R.drawable.abs_green_btn);
+						ChangAbsAndInc(current_axial, is_abs);
+						msharePreferenceUtil.saveSharedPreferences("is_abs", is_abs);
+						usb_enable = true;						
+					}
+					
+					//寻找XYZ零轴信号
+					StmUsbTask task = new StmUsbTask(mUsbDriver,new StmUsbTask.AfterAsyncTaskCallback() {
+						
+						@Override
+						public void afterDoTask(byte[] readdata) {
+							// TODO Auto-generated method stub
+							
+							if(readdata.length == 24){
+								//Toast.makeText(getApplicationContext(), "length="+readdata.length+"data="+readdata[1]+"", Toast.LENGTH_SHORT).show();
+							
+							switch (readdata[1]) {
+							case 0x01:
+								ShowAxialZeroMsg(StmUsbCommond.CMD_SEARCH_XAXIAL_ZERO,"已找到X轴的零位",true);
+								break;
+							case 0x02:
+								ShowAxialZeroMsg(StmUsbCommond.CMD_SEARCH_YAXIAL_ZERO,"已找到Y轴的零位",true);
+								break;
+							case 0x03:
+								ShowAxialZeroMsg(StmUsbCommond.CMD_SEARCH_ZAXIAL_ZERO,"已找到Z轴的零位",true);
+								break;
+							case 0x04:
+								ShowAxialZeroMsg(StmUsbCommond.CMD_SEARCH_CAXIAL_ZERO,"已找到C轴的零位",true);
+								break;
+							case 0x00:
+								ShowAxialZeroMsg(0,"没有找到该轴的零位",false);
+								break;
+
+							default:
+								break;
+							}
+								
+							}else{
+								Toast.makeText(getApplicationContext(), "寻零失败,请重新寻找", Toast.LENGTH_SHORT).show();
+								ref_btn.setBackgroundResource(R.drawable.ref_green_btn);
+
+							}
+							usb_enable = true;
+						}
+					});
+					switch (current_axial) {
+					case 1:						
+						task.execute(StmUsbCommond.CMD_SEARCH_XAXIAL_ZERO);
+						break;
+					case 2:						
+						task.execute(StmUsbCommond.CMD_SEARCH_YAXIAL_ZERO);
+						break;
+					case 3:						
+						task.execute(StmUsbCommond.CMD_SEARCH_ZAXIAL_ZERO);
+						break;
+
+					default:
+						break;
+					}
+										
+				}else if(other_isok == false){				
+					ShowDlgMsg();
+					
+				}
+			}
+			break;
+			
+		case R.id.help_btn:
+			
+			Intent intent = new Intent(this, HelpActivity.class);
+		     startActivity(intent);
+			break;
+			
 		default:
 			break;
 		}
@@ -1216,6 +1307,39 @@ public class MainShowBotomActivity extends EBaseActivity implements OnClickListe
 			}
 		});
 
+	}
+	
+	public void ShowAxialZeroMsg(final int cmd,String msg,final Boolean issend){
+		
+		final AlertDialog.Builder builder = new AlertDialog.Builder(
+				this);
+		final Dialog dialog = builder.show();
+		dialog.setCancelable(false);
+		
+		Window window = dialog.getWindow();
+		window.setContentView(R.layout.axal_dialog);
+		TextView msg_tv = (TextView)window.findViewById(R.id.axial_tv);
+		msg_tv.setText(msg);
+		
+		Button logout = (Button) window.findViewById(R.id.confirm_btn);
+		logout.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+
+				dialog.dismiss();
+				
+				//告知单片机已找到零位信号
+				if(issend == true){					
+					StmUsbTask findtask = new StmUsbTask(mUsbDriver);
+					findtask.execute(cmd);
+				}
+				ref_btn.setBackgroundResource(R.drawable.ref_green_btn);
+
+			}
+		});
+		
 	}
 	
 	public void ShowClearDlgMsg(final int index) {
